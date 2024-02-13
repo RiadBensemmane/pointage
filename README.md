@@ -1,5 +1,6 @@
 # pointage
-clone the repo  
+clone the repo     
+
 ```cmd git clone https://github.com/RiadBensemmane/pointage ``` 
 
 cd into the pointage folder  
