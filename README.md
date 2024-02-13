@@ -1,20 +1,20 @@
 # pointage
-clone the repo
+clone the repo  
 ```cmd git clone https://github.com/RiadBensemmane/pointage ``` 
 
-cd into the pointage folder
+cd into the pointage folder  
 
 ```cmd cd pointage``` 
 
-install the requirements
+install the requirements  
 
 ```cmd pip install -r requirements.txt ```
 
-cd into the project 'feuillePoitage'
+cd into the project 'feuillePoitage'  
 
 ```cmd cd .\feuillePoitage\ ```
 
-run the server 
+run the server   
 
 ```cmd python manage.py runserver ```
 
