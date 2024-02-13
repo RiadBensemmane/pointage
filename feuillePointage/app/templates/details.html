@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{employe.matricule}} {{employe.nom}} {{employe.prenom}}</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+    
+        .card {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 400px;
+            width: 100%;
+            margin: 20px;
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+        }
+    
+        .card:hover {
+            transform: scale(1.02);
+        }
+    
+        .card-content {
+            padding: 20px;
+            text-align: center; /* Center the text */
+        }
+    
+        .card p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+    
+        .card a {
+            display: block;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .card a:hover {
+            background-color: #45a049;
+        }
+
+        #matricule{
+            font-size: 40px;
+            color: white;
+        }
+
+        #matricule-cont{
+            background-color: #5ada60;
+        }
+
+        #att-cont{
+            margin: 20px;
+        }
+
+        .att{
+            padding: 5px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="card">
+        <div class="card-content">
+            <div id="matricule-cont">
+                <p id="matricule">Matricule: {{employe.matricule}}</p>
+            </div>
+            <div id="att-cont">
+                <p class="att">Nom: {{employe.nom}}</p>
+                <p class="att">Prénom: {{employe.prenom}}</p>
+                <p class="att">Adresse: {{employe.adresse}}</p>
+                <p class="att">Fonction: {{employe.fonction}}</p>
+                <p class="att">Date de recrutement: {{employe.dateRecrutement}}</p>
+                <p class="att">Date de détachement: {{employe.dateDetachement}}</p>
+                <p class="att">Affectation d'origine: {{employe.affectOrigine}}</p>
+                <p class="att">Situation familiale: {{employe.situationFamiliale}}</p>
+                <p class="att">Nombre d'enfants: {{employe.nbrEnfants}}</p>
+            </div>
+
+            <a href="{% url 'employe-update' employe.matricule %}">Modifier</a>
+            <a href="{% url 'employe-list' %}">Retourner à la liste des employés</a>
+        </div>
+    </div>
+</body>
+</html>

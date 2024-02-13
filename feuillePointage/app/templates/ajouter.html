@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un nouvel employe</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        form {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+        }
+        
+        
+        
+                .button-cont{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                }
+
+        form button,
+        form a {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+            border: none;
+            
+        }
+
+        form button:hover,
+        form a:hover {
+            background-color: #45a049;
+        }
+
+        form p {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if message == 'Nouvel employé ajouté avec succès' %}
+            <p style="color: green">{{ message }}</p>
+        {% else %}
+            <p style="color: red">{{ message }}</p>
+        {% endif %}
+
+        <div class="button-cont">
+            <button type="submit">Ajouter</button>
+            <a href="{% url 'employe-list' %}">Retourner à la liste des employés</a>
+        </div>
+    </form>
+</body>
+</html>
