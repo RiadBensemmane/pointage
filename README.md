@@ -14,7 +14,7 @@ cd pointage
 
 Install the requirements  
 
-```cmd
+```python
 pip install -r requirements.txt
  ```
 
