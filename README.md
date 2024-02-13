@@ -1,4 +1,5 @@
-# pointage
+# How to setup:   
+
 clone the repo     
 
 ```cmd git clone https://github.com/RiadBensemmane/pointage ``` 
