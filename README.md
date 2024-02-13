@@ -2,7 +2,7 @@
 
 clone the repo     
 
-```cmd git clone https://github.com/RiadBensemmane/pointage ``` 
+``` git clone https://github.com/RiadBensemmane/pointage ``` 
 
 cd into the pointage folder  
 
