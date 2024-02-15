@@ -37,23 +37,28 @@ def detail(request, pk):
 
 def updateSheet(request, pk):
 
-    row_sheet_map, col_sheet_map = row_col_dic()    
+    pointage = request.POST.get('pointage')
 
-    d, m, y = dmy(datetime.now())
+    if pointage is not None:
 
-    emp = Employe.objects.get(matricule=pk)
+        row_sheet_map, col_sheet_map = row_col_dic()    
 
-    wb = load_workbook('./PointageWorkbook/PointageAnnuel.xlsx')
-    ws = wb[f"{emp.matricule} {emp.nom} {emp.prenom}"]
+        d, m, y = dmy(datetime.now())
 
-    ws[str(col_sheet_map[d]) + str(row_sheet_map[m])].value = request.POST.get('pointage')
+        emp = Employe.objects.get(matricule=pk)
 
-    emp.dernierPointage = request.POST.get('pointage')
-    emp.dateDernierPointage = datetime.now()
-    emp.save(call=False)
+        wb = load_workbook('./PointageWorkbook/PointageAnnuel.xlsx')
+        ws = wb[f"{emp.matricule} {emp.nom} {emp.prenom}"]
 
-    wb.save('./PointageWorkbook/PointageAnnuel.xlsx')
+        ws[str(col_sheet_map[d]) + str(row_sheet_map[m])].value = pointage
 
+
+        wb.save('./PointageWorkbook/PointageAnnuel.xlsx')
+
+        emp.dernierPointage = pointage
+        emp.dateDernierPointage = datetime.now()
+        emp.save(call=False)
+        
     return redirect('employe-list')
 
 

@@ -6,6 +6,12 @@
     <title>Liste des employes</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous">
+    </script>
 
     <style>
         body {
@@ -189,7 +195,7 @@
             </thead>
             <tbody>
                 {% for emp in employes %}
-                    <form method="post" action="{% url 'sheet-update' emp.matricule %}">
+                    <form method="post" action="{% url 'sheet-update' emp.matricule %}" class="update-form">
                         {% csrf_token %}
                         <tr id="{{emp.matricule}}" style="cursor: pointer;">
                             <td class="td-mat"><a href="{% url 'employe-detail' emp.matricule %}">{{ emp.matricule }}</a></td>
@@ -220,7 +226,7 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="submit" value="Enregister">
+                                <input type="submit" value="Enregister" class="update" onclick="event.stopPropagation()">
                             </td>
                         </tr>
                     </form>
@@ -276,5 +282,40 @@
             window.location.href = url;
         }
     </script>
+
+    <script>
+        $(document).ready(function(){
+            
+            $(".update-form").submit(function(event){
+                event.preventDefault();
+                var form = $(this);
+                
+                $.ajax({
+                    type: form.attr('method'),
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function(data, textStatus, xhr){
+                        
+                            alert('Pointage sauvegardé');
+                            window.location.href = "{% url 'employe-list' %}";
+                    },
+                    
+                    error: function(xhr, textStatus, errorThrown){
+                        if (errorThrown === 'Internal Server Error'){
+                           
+                            alert('WARNING: INTERNAL SERVER ERROR.\n If the excel workbook is already opened, please close it and try again');
+
+                        }
+                        else{
+                            alert(`${errorThrown} has occured.`);
+                        }
+
+                        window.location.href = "{% url 'employe-list' %}";
+                    }
+                })
+            })
+        })
+        
+        </script>
 </body>
 </html>
