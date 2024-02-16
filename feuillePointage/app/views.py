@@ -35,29 +35,32 @@ def detail(request, pk):
     return render(request, 'details.html', context)
 
 
-def updateSheet(request, pk):
+def updateSheet(request):
 
-    pointage = request.POST.get('pointage')
+    # pointage = request.POST.get('pointage')
+    row_sheet_map, col_sheet_map = row_col_dic()    
 
-    if pointage is not None:
+    d, m, y = dmy(datetime.now())
+ 
+    for matricule, pointage in request.POST.items():
+        if isInt(matricule):
 
-        row_sheet_map, col_sheet_map = row_col_dic()    
+            if pointage is not None:
 
-        d, m, y = dmy(datetime.now())
+                emp = Employe.objects.get(matricule=matricule)
 
-        emp = Employe.objects.get(matricule=pk)
+                wb = load_workbook('./PointageWorkbook/PointageAnnuel.xlsx')
+                ws = wb[f"{emp.matricule} {emp.nom} {emp.prenom}"]
 
-        wb = load_workbook('./PointageWorkbook/PointageAnnuel.xlsx')
-        ws = wb[f"{emp.matricule} {emp.nom} {emp.prenom}"]
-
-        ws[str(col_sheet_map[d]) + str(row_sheet_map[m])].value = pointage
+                ws[str(col_sheet_map[d]) + str(row_sheet_map[m])].value = pointage
 
 
-        wb.save('./PointageWorkbook/PointageAnnuel.xlsx')
+                wb.save('./PointageWorkbook/PointageAnnuel.xlsx')
 
-        emp.dernierPointage = pointage
-        emp.dateDernierPointage = datetime.now()
-        emp.save(call=False)
+                emp.dernierPointage = pointage
+                emp.dateDernierPointage = datetime.now()
+                emp.save(call=False)
+    
         
     return redirect('employe-list')
 
@@ -159,3 +162,10 @@ def change_sheet_values(matricule, nom, prenom, formAnswers):
     ws['ag11'].value = formAnswers['nbrEnfants'] if ws['ag11'].value != formAnswers['nbrEnfants'] else ws['ag11'].value
 
     wb.save('./PointageWorkbook/PointageAnnuel.xlsx')   
+
+
+def isInt(x):
+    try:
+        return isinstance(int(x), int)
+    except ValueError:
+        return False

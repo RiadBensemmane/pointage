@@ -46,8 +46,5 @@ class EmployeFormUpdate(forms.ModelForm):
         self.fields['affectOrigine'].required = False
         self.fields['nbrEnfants'].required = False
 
-class dernierPointageForm(forms.ModelForm):
-    class Meta:
-        model = Employe
-        fields = ['dernierPointage']
+
 

@@ -95,6 +95,10 @@
             padding: 8px;
             border: none;
             cursor: pointer;
+            margin-left: 20px;
+            width: 100px;
+            height: 35px;
+    
         }
 
         input[type="submit"]:hover {
@@ -194,9 +198,9 @@
                 </tr>
             </thead>
             <tbody>
-                {% for emp in employes %}
-                    <form method="post" action="{% url 'sheet-update' emp.matricule %}" class="update-form">
-                        {% csrf_token %}
+                <form method="post" action="{% url 'sheet-update' %}" class="update-form">
+                    {% csrf_token %}
+                    {% for emp in employes %}
                         <tr id="{{emp.matricule}}" style="cursor: pointer;">
                             <td class="td-mat"><a href="{% url 'employe-detail' emp.matricule %}">{{ emp.matricule }}</a></td>
                             <td class="td-nom">{{ emp.nom }}</td>
@@ -208,7 +212,7 @@
                                 <td class="td-maj" style="color: green">Oui</td>
                             {% endif %}
                             <td class="td-pointage">
-                                <select name="pointage" id="{{emp.matricule}}" class="select" onclick="event.stopPropagation()">
+                                <select name="{{emp.matricule}}" id="{{emp.matricule}}" class="select" onclick="event.stopPropagation()">
                                     <option value="{{emp.dernierPointage}}" selected disabled>{{emp.dernierPointage}}</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -226,11 +230,11 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="submit" value="Enregister" class="update" onclick="event.stopPropagation()">
                             </td>
                         </tr>
+                    {% endfor %}
+                    <input type="submit" value="Enregister" class="update" onclick="event.stopPropagation()">
                     </form>
-                {% endfor %}
             </tbody>
         </table>
     </div>
